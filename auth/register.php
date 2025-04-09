@@ -58,8 +58,8 @@ try {
                 "expires" => time() + 180,
                 "path" => "/",
                 "secure" => false,         // mettre à true en production (HTTPS)
-                "httponly" => true,        // pour empêcher JS d'y accéder
-                "samesite" => "Lax"        // compatible avec navigation normale
+                "httponly" => false,       
+                "samesite" => "None"        // compatible avec navigation normale
             ]);
 
             echo json_encode([
