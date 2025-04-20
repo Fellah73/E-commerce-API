@@ -25,7 +25,7 @@ try {
     $stmt->setFetchMode(PDO::FETCH_ASSOC);
     $user = $stmt->fetch();
 
-    $stmt = $pdo->prepare("SELECT id,total,created_at FROM orders WHERE user_id = ?");
+    $stmt = $pdo->prepare("SELECT id,total,created_at,status FROM orders WHERE user_id = ? and status != 'cancelled'");
     $stmt->execute([$user_id]);
     $stmt->setFetchMode(PDO::FETCH_ASSOC);
     $orders = $stmt->fetchAll();
@@ -33,13 +33,34 @@ try {
     // si aucun order
     if (count($orders) === 0) {
         echo json_encode([
-            "success" => false,
+            "success" => true,
             "message" => "User does not have any orders",
             "user" => $user["name"],
             "length" => count($orders),
         ], JSON_PRETTY_PRINT);
         exit;
     }
+
+    // update order status
+    foreach ($orders as $order) {
+        $order_date = new DateTime($order["created_at"]);
+        $current_date = new DateTime();
+        if ($order_date->diff($current_date)->days <  7) {
+            $stmt = $pdo->prepare("UPDATE orders SET status = 'processing' WHERE id = ?");
+            $stmt->execute([$order["id"]]);
+        }else if($order_date->diff($current_date)->days <  14 && $order_date->diff($current_date)->days >=  7){
+            $stmt = $pdo->prepare("UPDATE orders SET status = 'shipped' WHERE id = ?");
+            $stmt->execute([$order["id"]]);
+        }else if($order_date->diff($current_date)->days >=  14){
+            $stmt = $pdo->prepare("UPDATE orders SET status = 'delivered' WHERE id = ?");
+            $stmt->execute([$order["id"]]);
+        }
+    }
+
+
+
+
+
     $order_data = [];
     foreach ($orders as $order) {
         $order_details = $order;
@@ -60,9 +81,6 @@ try {
         "orders" => $order_data,
     ], JSON_PRETTY_PRINT);
     exit;
-
-    
-
 } catch (PDOException $e) {
     // probleme depuis le serveur
     echo json_encode([
