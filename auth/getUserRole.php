@@ -35,44 +35,29 @@ try {
     }
 
 
-    $stmt = $pdo->prepare("SELECT * FROM cart_items WHERE user_id = ?");
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
     $stmt->execute([$user_id]);
     $stmt->setFetchMode(PDO::FETCH_ASSOC);
-    $existing = $stmt->fetch();
+    $userInfo = $stmt->fetch();
 
-    // si le user n'a pas de panier
-    if (!$existing) {
+    // si le user n'existe pas
+    if (!$userInfo) {
         echo json_encode([
             "success" => false,
-            "message" => "user does not have a cart",
-            "user" => $user["name"]
-        ], JSON_PRETTY_PRINT);
-        exit;
-
-        // si le user a un panier le retourner
-    } else {
-        $selctItems = $pdo->prepare("SELECT c.id, p.id AS product_id, p.name, p.image,p.price_discounted as product_price,cat.categ ,c.price as subtotal, c.quantity FROM cart_items c JOIN products p ON c.product_id = p.id JOIN categories cat ON p.category_id = cat.id JOIN users u ON c.user_id = u.id WHERE c.user_id = ?;");
-        $selctItems->execute([$user_id]);
-        $selctItems->setFetchMode(PDO::FETCH_ASSOC);
-        $cartItems = $selctItems->fetchAll();
-
-
-        if (!$cartItems) {
-            echo json_encode([
-                "success" => true,
-                "message" => "iternal server error",
-            ], JSON_PRETTY_PRINT);
-            exit;
-        }
-
-        echo json_encode([
-            "success" => true,
-            "message" => "cart items",
-            "cart_items" => $cartItems,
-            "user" => $user["name"]
+            "message" => "no user found",
         ], JSON_PRETTY_PRINT);
         exit;
     }
+
+    //retourne the role
+    echo json_encode([
+        "success" => true,
+        "message" => "user role",
+        "role" => $userInfo["role"],
+        "name" => $userInfo["name"]
+    ], JSON_PRETTY_PRINT);
+    exit;
+
 } catch (PDOException $e) {
     // probleme depuis le serveur
     echo json_encode([

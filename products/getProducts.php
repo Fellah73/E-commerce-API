@@ -1,18 +1,10 @@
 <?php
-// Autoriser les requêtes venant de n'importe où (*), ou préciser l'origine exacte
 header("Access-Control-Allow-Origin: *");
-
-// Autoriser les méthodes HTTP
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-
-// Autoriser les en-têtes personnalisés
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
-
-// Spécifier que la réponse est en JSON
 header("Content-Type: application/json");
 
-require_once "db.php";  // Importer la connexion
-
+require_once "db.php";
 
 try {
     $category_id = isset($_GET['category_id']) ? intval($_GET['category_id']) : 0;

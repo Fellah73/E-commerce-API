@@ -20,7 +20,7 @@ try {
     }
 
     $name = $body['name'];
-    $price =  $body['price'];
+    $price =  intval($body['price']);
     $discount = intval($body['discount']);
     $quantity = intval($body['quantity']);
     $category_id = intval($body['category_id']);
@@ -38,7 +38,7 @@ try {
 
     $price_discounted = $price - ($price * $discount / 100);
 
-    $query = "INSERT INTO products (name, price, price_discounted, discount, qte, category_id, brand, description, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO products (name, price, price_discounted, discount, qte, category_id, brand, description, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $pdo->prepare($query);
     $stmt->execute([$name, $price, $price_discounted, $discount, $quantity, $category_id, $brand, $description, $image]);

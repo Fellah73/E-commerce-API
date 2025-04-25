@@ -64,7 +64,7 @@ try {
     $order_data = [];
     foreach ($orders as $order) {
         $order_details = $order;
-        $stmt = $pdo->prepare("SELECT p.name,p.price,p.category_id,o.quantity,o.subtotal FROM order_items o,products p WHERE order_id = ? and o.product_id = p.id");
+        $stmt = $pdo->prepare("SELECT p.name,p.price_discounted,p.category_id,o.quantity,o.subtotal FROM order_items o,products p WHERE order_id = ? and o.product_id = p.id");
         $stmt->execute([$order["id"]]);
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $order_items = $stmt->fetchAll();
