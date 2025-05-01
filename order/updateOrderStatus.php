@@ -34,7 +34,7 @@ try {
     $stm->execute([$user_id]);
     $adminUser = $stm->fetch(PDO::FETCH_ASSOC);
 
-    if ($adminUser["role"] != "admin") {
+    if ($adminUser["role"] != "admin" && $adminUser["role"] != "super_admin") {
         echo json_encode([
             'success' => false,
             'message' => 'You are not admin'
