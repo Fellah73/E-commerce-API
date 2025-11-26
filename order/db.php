@@ -1,7 +1,7 @@
 <?php
 $host = "localhost";
-$dbname = "gadget_store";  // Remplace par ton nom de base
-$username = "root";  // Par défaut sous WAMP
+$dbname = "gadget_store"; 
+$username = "root"; 
 $password = "";	
 
 try {
