@@ -1,45 +1,45 @@
 # 🛒 E-commerce API
 
-Une API RESTful simple et efficace pour gérer un système d’e-commerce.  
-Développée en **PHP** avec une base de données **MySQL**, elle fournit des routes essentielles pour l’authentification, la gestion du panier, des commandes, des produits, des recommandations et des utilisateurs.
+A simple and efficient RESTful API to manage an e-commerce system.  
+Built with **PHP** and **MySQL**, it provides essential routes for authentication, cart management, orders, products, recommendations, and users.
 
 ---
 
-## 🚀 Fonctionnalités principales
+## 🚀 Main features
 
-- 🔐 **Auth** : inscription, connexion, gestion des tokens
-- 🛍️ **Cart** : ajout, suppression et gestion des articles dans le panier
-- 📦 **Order** : création et suivi des commandes
-- 🛒 **Products** : affichage, recherche et gestion des produits
-- 🤝 **Recommendation** : suggestions de produits basées sur l’historique
-- 👤 **User** : gestion des profils utilisateurs
-
----
-
-## 🛠️ Technologies utilisées
-
-- **Langage** : PHP
-- **Base de données** : MySQL
-- **Architecture** : REST API
+- 🔐 **Auth**: registration, login, token management  
+- 🛍️ **Cart**: add, remove and manage cart items  
+- 📦 **Order**: create and track orders  
+- 🛒 **Products**: list, search and manage products  
+- 🤝 **Recommendation**: product suggestions based on history  
+- 👤 **User**: user profile management
 
 ---
 
-## 📂 Structure du projet
+## 🛠️ Technologies used
+
+- **Language**: PHP  
+- **Database**: MySQL  
+- **Architecture**: REST API
+
+---
+
+## 📂 Project structure
 
 auth/  
-- Gestion de l'authentification (login, register, tokens)
+- Authentication management (login, register, tokens)
 
 cart/  
-- Gestion du panier (ajout, suppression, affichage)
+- Cart management (add, remove, display)
 
 order/  
-- Gestion des commandes (création, suivi, historique)
+- Order management (creation, tracking, history)
 
 products/  
-- Gestion des produits (CRUD, recherche, filtres) 
+- Product management (CRUD, search, filters)
 
 recommendation/  
-- Système de recommandations (basé sur historique ou popularité)
+- Recommendation system (based on history or popularity)
 
 user/  
-- Gestion des utilisateurs (profil, mise à jour, suppression)
+- User management (profile, update, delete)
